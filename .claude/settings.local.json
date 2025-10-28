@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wsl --install:*)",
+      "Bash(wsl --unregister:*)",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:\\Users\\grzlz\\install.ps1\")",
+      "Read(//c/Users/grzlz/**)",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:\\Users\\grzlz\\install_utf16.ps1\")",
+      "Bash(powershell -Command \"$ProgressPreference = ''SilentlyContinue''; [System.Net.ServicePointManager]::SecurityProtocol = ''Tls12''; $response = Invoke-WebRequest -Uri ''https://icarus.mx/ariadna/install.ps1'' -UseBasicParsing; $utf8NoBom = New-Object System.Text.UTF8Encoding $false; [System.IO.File]::WriteAllLines(''C:\\Users\\grzlz\\install_proper.ps1'', $response.Content, $utf8NoBom)\")",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:\\Users\\grzlz\\download_script.ps1\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
