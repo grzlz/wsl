@@ -1819,6 +1819,127 @@ $ sudo dockerd
 
 Look for error messages.
 
+### Issue 8: Docker Installation Script Warnings on WSL
+
+When running the Docker installation script (`sh get-docker.sh`), you may encounter these warnings:
+
+```
+Warning: the "docker" command appears to already exist on this system.
+WSL DETECTED: We recommend using Docker Desktop for Windows.
+Please get Docker Desktop from https://www.docker.com/products/docker-desktop/
+```
+
+**What's happening:**
+- The script detected that Docker (or remnants of it) already exists on your system
+- The script detected you're running WSL and is recommending Docker Desktop for Windows instead
+
+**Solution Options:**
+
+**Option 1: Continue with Docker Engine in WSL (Recommended for this guide)**
+If you want full control and don't need a GUI:
+
+1. **Wait for the timeout** (20 seconds) or press Enter to continue with the installation
+2. **The script will complete successfully** and install Docker Engine
+3. **Configure the Docker service** to start properly in WSL
+
+After installation completes:
+
+```bash
+# Add your user to the docker group
+$ sudo usermod -aG docker $USER
+
+# Exit and restart WSL
+$ exit
+
+# (From Windows PowerShell or Terminal)
+> wsl --shutdown
+> wsl
+
+# Start Docker service
+$ sudo service docker start
+
+# Verify installation
+$ docker run hello-world
+```
+
+**Make Docker start automatically on WSL startup:**
+
+Add to your `~/.bashrc`:
+```bash
+$ echo '# Start Docker service if not running' >> ~/.bashrc
+$ echo 'if ! sudo service docker status > /dev/null 2>&1; then' >> ~/.bashrc
+$ echo '    sudo service docker start > /dev/null 2>&1' >> ~/.bashrc
+$ echo 'fi' >> ~/.bashrc
+```
+
+**Configure passwordless sudo for Docker service (optional but convenient):**
+
+```bash
+$ sudo visudo
+```
+
+Add this line at the end:
+```
+your-username ALL=(ALL) NOPASSWD: /usr/sbin/service docker start, /usr/sbin/service docker status
+```
+
+Replace `your-username` with your actual WSL username.
+
+**Option 2: Install Docker Desktop for Windows**
+If you prefer a GUI and automatic management:
+
+- Download from https://www.docker.com/products/docker-desktop/
+- Install on Windows (not in WSL)
+- Docker Desktop automatically integrates with WSL2
+- Provides GUI for container management
+- No need to manually start Docker service
+- **Note:** Requires more system resources and installs additional Windows services
+
+**After installing Docker Desktop:**
+```bash
+# Test Docker from WSL
+$ docker --version
+$ docker run hello-world
+```
+
+**Option 3: Clean Up and Start Fresh**
+
+If you want to remove the existing Docker installation first:
+
+```bash
+# Remove existing Docker packages
+$ sudo apt remove docker docker-engine docker.io containerd runc
+
+# Remove Docker data
+$ sudo rm -rf /var/lib/docker
+$ sudo rm -rf /var/lib/containerd
+
+# Clean up
+$ sudo apt autoremove
+$ sudo apt autoclean
+```
+
+Then reinstall using either approach above.
+
+**Docker Engine vs Docker Desktop Comparison:**
+
+| Feature | Docker Engine (WSL) | Docker Desktop |
+|---------|-------------------|----------------|
+| Resource Usage | Lower | Higher |
+| GUI | No | Yes |
+| Auto-start | Manual setup needed | Automatic |
+| Full Control | Yes | Limited |
+| Windows Integration | Manual | Automatic |
+| Best for | Servers, power users | Developers, beginners |
+
+**Recommendation for this guide:**
+We recommend **Docker Engine in WSL** because:
+- Lower resource usage (no extra Windows services)
+- Full control over Docker configuration
+- Better for server-like environments
+- Closer to production Linux environments
+- No additional Windows services running in background
+
 ### Debugging Commands Reference
 
 ```bash

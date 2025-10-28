@@ -1,0 +1,43 @@
+gguillermo@LAPTOP-MHAK1L12:~$ sh get-docker.sh
+# Executing docker install script, commit: 86415efcfe5f8d966625843da41a0f798238cce5
+Warning: the "docker" command appears to already exist on this system.
+
+If you already have Docker installed, this script can cause trouble, which is
+why we're displaying this warning and provide the opportunity to cancel the
+installation.
+
+If you installed the current Docker package using this script and are using it
+again to update Docker, you can ignore this message, but be aware that the
+script resets any custom changes in the deb and rpm repo configuration
+files to match the parameters passed to the script.
+
+You may press Ctrl+C now to abort this script.
++ sleep 20
+
+WSL DETECTED: We recommend using Docker Desktop for Windows.
+Please get Docker Desktop from https://www.docker.com/products/docker-desktop/
+
+
+You may press Ctrl+C now to abort this script.
++ sleep 20uillermo@LAPTOP-MHAK1L12:~$ sh get-docker.sh
+# Executing docker install script, commit: 86415efcfe5f8d966625843da41a0f798238cce5
+Warning: the "docker" command appears to already exist on this system.
+
+If you already have Docker installed, this script can cause trouble, which is
+why we're displaying this warning and provide the opportunity to cancel the
+installation.
+
+If you installed the current Docker package using this script and are using it
+again to update Docker, you can ignore this message, but be aware that the
+script resets any custom changes in the deb and rpm repo configuration
+files to match the parameters passed to the script.
+
+You may press Ctrl+C now to abort this script.
++ sleep 20
+
+WSL DETECTED: We recommend using Docker Desktop for Windows.
+Please get Docker Desktop from https://www.docker.com/products/docker-desktop/
+
+
+You may press Ctrl+C now to abort this script.
++ sleep 20
